@@ -1,33 +1,39 @@
 public class EmployeeWage {
-    int status;
+    static int status;
     static int RATE_PER_HOUR ;
-    static int DAY_HOURS ;
     static int wage=0;
+    static int PART_TIME;
+    static int FULL_TIME;
+    static int emphours;
     EmployeeWage() {
         RATE_PER_HOUR=20;
-        DAY_HOURS=8;
+        PART_TIME=2;
+        FULL_TIME=1;
     }
-    boolean isPresent() {
-        status=((int)(Math.random()*10)%2);
-        if(status==1) {
-            return true;
-        }
+    static int isPresent() {
+        status=(int)(Math.random()*10)%3;
+        if(status==FULL_TIME)
+            emphours=8;
+        else if(status==PART_TIME)
+            emphours=4;
         else
-        return false;
+            emphours=0;
+        return emphours;
     }
 
     public static void main(String[] args) {
 
         EmployeeWage employeeWage=new EmployeeWage();
 
-        if(employeeWage.isPresent()){
+        if((isPresent())>0){
             calculateWage();
         }
+        else System.out.println("Employee is absent");
         System.out.println("Total Wage of Employee is : "+employeeWage.wage);
     }
 
     static void calculateWage() {
-        wage=DAY_HOURS*RATE_PER_HOUR;
+        wage=emphours*RATE_PER_HOUR;
     }
 
 }

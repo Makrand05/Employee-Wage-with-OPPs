@@ -9,6 +9,7 @@ public class EmployeeWage {
     static int emphours;
     static int halfDayWorking = 0;
     static int fullDayWorking = 0;
+    static int maxHours=100;
 
     EmployeeWage() {
         RATE_PER_HOUR = 20;
@@ -39,7 +40,7 @@ public class EmployeeWage {
         EmployeeWage employeeWage = new EmployeeWage();
         int totalMonthtlyWage = 0;
         int day = 0;
-        while (day < WORKING_DAYS_IN_MONTH) {
+        while (day < WORKING_DAYS_IN_MONTH && WORKING_HOURS_IN_MONTH<maxHours) {
             if ((isPresent()) > 0) {
                 totalMonthtlyWage += calculateWage();
                 day++;

@@ -4,10 +4,15 @@ public class EmployeeWage {
     static int wage = 0;
     final static int PART_TIME = 0;
     final static int FULL_TIME = 1;
+    static int WORKING_DAYS_IN_MONTH;
+    static int WORKING_HOURS_IN_MONTH;
     static int emphours;
+    static int halfDayWorking = 0;
+    static int fullDayWorking = 0;
 
     EmployeeWage() {
         RATE_PER_HOUR = 20;
+        WORKING_DAYS_IN_MONTH = 20;
     }
 
     static int isPresent() {
@@ -15,9 +20,13 @@ public class EmployeeWage {
         switch (status) {
             case FULL_TIME:
                 emphours = 8;
+                WORKING_HOURS_IN_MONTH+=8;
+                fullDayWorking++;
                 break;
             case PART_TIME:
                 emphours = 4;
+                WORKING_HOURS_IN_MONTH+=4;
+                halfDayWorking++;
                 break;
             default:
                 emphours = 0;
@@ -28,15 +37,23 @@ public class EmployeeWage {
     public static void main(String[] args) {
 
         EmployeeWage employeeWage = new EmployeeWage();
-
-        if ((isPresent()) > 0) calculateWage();
-        else System.out.println("Employee is absent");
-
-        System.out.println("Total Wage of Employee is : " + employeeWage.wage);
+        int totalMonthtlyWage = 0;
+        int day = 0;
+        while (day < WORKING_DAYS_IN_MONTH) {
+            if ((isPresent()) > 0) {
+                totalMonthtlyWage += calculateWage();
+                day++;
+            }
+        }
+        System.out.println("Total Full Working Days : " + fullDayWorking);
+        System.out.println("Total Half Working Days : " + halfDayWorking);
+        System.out.println("Total Working day : " + day);
+        System.out.println("Total Working Hours : " + WORKING_HOURS_IN_MONTH);
+        System.out.println("Total Wage of Employee is : " + totalMonthtlyWage);
     }
 
-    static void calculateWage() {
-        wage = emphours * RATE_PER_HOUR;
+    static int calculateWage() {
+        return (emphours * RATE_PER_HOUR);
     }
 
 }
